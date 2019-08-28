@@ -11,13 +11,12 @@ STATUS_SERVER_NAME=$(echo $STATUS | awk '{for(i=1;i<=NF;i++) if ($i=="server:") 
 STATUS_UPTIME=$(nordvpn status | grep -m1 "Uptime:")
 STATUS_TRRX=$(nordvpn status | grep -m1 "Transfer:")
 
-# icon
 if [[ $STATUS_CONNECTED == "Connected" ]]; then
-echo "🌈<span color='green'>≡</span>"
-elif [[ $STATUS_CONNECTED == "Connecting" ]]; then
-  echo "🌈<span color='orange'>≡</span>"
+  # icon
+  # curl -s 'https://s1.nordcdn.com/nordvpn/media/1.170.0/images/global/favicon/apple-touch-icon-57x57.png' | convert png:- -resize 20x25 png:- | base64 -w 0
+  echo " | image=iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABmJLR0QA/wD/AP+gvaeTAAACTElEQVQ4y5XTsWvdVRjG8c977u+GKqEYkJRmzFKXopMFLYgOXeogxKUi2SooOOp/0KW61JgWXAoSHCyFDB0c4tJBqNSi6SRGoaDVqkjaijW9v3teh9+tJLe5NT5wlsN5vjzv83LCI/T6xXMgmiyQbVRYWXhzoifGLxZXz0qa4FCK53BY5CzI+BXXQ36Bb9F+/MpbO4GvXTpL0rRhmJTiMN4OXsYBoexwpIpbySUs1er6vjbce7xC97g/CBlKKU5gNTgpHHwI1s1UhIPBSayW4sT9qSxXn9nsgI/9XdRewiKWI8w/XMTuZUWYxzK5+OzVJ/QHoQyaKtLRkKcizOwBtZPbeU4VjmakkmJ/indFzE0yZbqT6c5kaMyleCfF/oJjeHFihJRYwoeZjwz7Eo41WIgwPZnna5zrWnMcT08YfTrTQsGRXUbMTF9m+oU8E/wU/IilTLcyXcku+biONNitu+/wBl4lvtp2fxFP4TMs49CYb66gP5ZugA/wDVa6qRk0VbCJT7CBM6O329UvuDt2uYaV+DdpbmxNVSG8cOVJWBdujsBrY94/S/D9tnS/43Rwe9BUwybrsLHVqx3+8+d/0zY5bHs5CG7j9MjzQBslWRstAc6Tl/uDEBO+S4zOzdkt5GWcz+wWibWCC/gZ61gOUe/tq/5Ls39MCVFHy1kfMS40uIaP8ENwoyt/L5+5W1S/LTeS9zGPa01Qk/cwnL7bszmTe4J144dSGRafoldSbdom4S/YnGn3DHug+/2UJbcSpYbmfxN22VLkqKTgH7jK56fCM3duAAAAAElFTkSuQmCC"
 else
-  echo "🌈<span color='red'>≡</span>"
+  echo " | image=iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAZiS0dEAP8A/wD/oL2nkwAAAwZJREFUOMuVlF+IVHUUxz/f37137t2ddly3dVgLH3KJ7SFJMokSFoUVopcKH3qSHiNCBOtJrAeFDWMR1mXtwSdBAlHoqQhG0BY0QtK2LFpYkxbW8h/NlKtzZ+69p4eZ6s60I/WFH/w45/f7nu/v/M45iopl2hBgZkbSuEeaPOCFPd8iF8j5Bd8VimSNBwlgl4+P04xrOC9EEnkoT5glsU1MVYmrcSDnj4G2STxtaLgd8Y6ZXQW7kGXNhb7BqFl5dxDnh52EZkZ8/zYv7r2q/nVjz+C8twUvAyOAoxMZ8KvBZ1g6e//Wj/MXpzdZ2L8OSQhg52QG4AGvAweBUWvnYDXkfNeA94FTQFrZ71rR67VlgN3ADDDKQ8i6fKPtO7vbHLjDZoSlkXHgEDDE/8cQcCgsjYzPmOGltm/QC6IPga29bhj8DsSCsMeRkuQe/f5s7XPnhcUJYIf1VmBgx1oL63EAYIcXDkz4yO0CBjpypjZNa3uFNP0IAc5/CdjcnVC1GAeQ2+UEW1YJmQGXBDeA6b7hYClcGywBx4BfgEu0yqdDs2CLD2zoLhGDRSx7S9IroMv1KliWApyRtNGMc0hHBWP5Zws2OKCgnBFoCGYk97WZnTQzA2iu3EXO+82MU5IWBEeBhv2jDiBwQI1OY8UsO2mWYWmymNRri6XH4avpTWAgue9AN8zSjw0qXWJqPrCI2VYDJN0BjghXLZTEp3v8DIj/CljZL4D02Tc+SYeferVqWXYE6XkzGxaAdM03OC/pudZn2YnGHzfn5j54jKhYJjc4OvDDmTepr7zG9vfuzgV9a09Iegcwg/PO0uZpg2WDeUubs19Mrk+iYlntDPRcUbGscweHkixtzBrMGyxb2jzt15a+vDL4xPhxzH46eyC8HkZr5PzoYa38N8JoDXG9dn3nZDaFtLH288VvBGj7gdv9zXo1vTD1ZNw1cFdrCuWrr75yi237FkIvKvlzk+tXFBbLShr3zMmTF/T9F2H/QprEYBnOj/AFFhQeySvIQ/To37zfy03sPwG6KjeZviQWSQAAAABJRU5ErkJggg=="
 fi
 
 # menu
