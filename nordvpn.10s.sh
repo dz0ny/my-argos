@@ -28,7 +28,6 @@ elif [[ $STATUS_CONNECTED == "Connecting" ]]; then
   echo -e "<span color='orange'>Connecting</span>"
 else
   echo -e "<span color='red'>Disconnected</span>"
-  echo "IP: <span color='red'>$STATUS_IP</span>"
 fi
 
 
