@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 STATUS="$(nordvpn status)"
 
 STATUS_CONNECTED=$(echo $STATUS | awk '{print $2}') # Lazy and quick way
@@ -13,7 +12,13 @@ STATUS_UPTIME=$(nordvpn status | grep -m1 "Uptime:")
 STATUS_TRRX=$(nordvpn status | grep -m1 "Transfer:")
 
 # icon
-echo "🌈"
+if [[ $STATUS_CONNECTED == "Connected" ]]; then
+echo "🌈<span color='green'>≡</span>"
+elif [[ $STATUS_CONNECTED == "Connecting" ]]; then
+  echo "🌈<span color='orange'>≡</span>"
+else
+  echo "🌈<span color='red'>≡</span>"
+fi
 
 # menu
 echo "---"
