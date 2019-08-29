@@ -17,7 +17,7 @@ import re
 from itertools import groupby
 
 # GitHub.com
-github_api_key = os.getenv( 'GITHUB_TOKEN', 'Enter your GitHub.com Personal Access Token here...' )
+github_api_key = os.getenv( 'GITHUB_TOKEN', 'GITHUB_TOKEN' )
 
 # GitHub:Enterprise (optional)
 enterprise_api_key = os.getenv( 'GITHUB_ENTERPRISE_TOKEN', 'Enter your GitHub:Enterprise Personal Access Token here...' )
@@ -165,8 +165,11 @@ else:
         )
         print '---'
     else:
-        print ''
-        exit(0)
+        print_bitbar_line(
+            title='',
+            image=image
+        )
+        print '---'
 
     print_bitbar_line( title='Refresh', refresh='true' )
 
