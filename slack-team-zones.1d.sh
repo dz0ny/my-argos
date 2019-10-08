@@ -9,12 +9,16 @@ echo "---"
 while IFS= read -r p; do
   name=$(echo "$p" | jq -cMr '.[1]')
   mail=$(echo "$p" | jq -cMr '.[3]')
-
+  tel=$(echo "$p" | jq -cMr '.[5]')
+  status=$(echo "$p" | jq -cMr '.[6]')
   tz=$(echo "$p" | jq -cMr '.[2]')
 
   if [[ "$mail" =~ niteo.co ]]; then
     time=$(env TZ="$tz" date +'%H:%M:%S %z')
     img=$(echo "$p" | jq -cMr '.[4]' | xargs curl -s | base64 -w0)
-    echo "<b>$time</b> $name | href=\"mailto:$mail\" image=\"$img\" imageWidth=25"
+    echo "<b>$time</b> $name | image=\"$img\" imageWidth=25"
+    echo "-- $status"  
+    echo "-- <b>Email</b>:  $mail | href=\"mailto:$mail\""
+    echo "-- <b>Phone</b>: $tel | href=\"tel:$mail\""  
   fi
-done < <(curl -s "https://slack.com/api/users.list?token=$TOKEN" | jq '.members[] | select(.deleted == false) | select(.is_bot == false) | [.name, .real_name, .tz, .profile.email, .profile.image_48]' -cM)
+done < <(curl -s "https://slack.com/api/users.list?token=$TOKEN" | jq '.members[] | select(.deleted == false) | select(.is_bot == false) | [.name, .real_name, .tz, .profile.email, .profile.image_48, .profile.phone, .profile.status_text_canonical]' -cM)
